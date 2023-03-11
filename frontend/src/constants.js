@@ -1,0 +1,57 @@
+export const TextPerLang = {
+  en: {
+    nav: {
+      home: "Home",
+      about: "about",
+      api: "Api",
+    },
+    domains: {
+      domain0: "",
+      domain1: "",
+      domain2: "طب",
+      domain3: "علم النفس",
+      domain4: "أحياء وعلوم طبيعية",
+      domain5: "كيمياء",
+      domain6: "فيزياء",
+      domain7: "علم الفلك",
+      domain7: "كهرباء",
+      domain8: "هندسة مدنية و معمارية",
+      domain9: "هندسة ميكانيكية",
+      domain10: "فلسفة",
+      domain11: "تاريخ و جغرافيا",
+      domain12: "علم الآثار",
+      domain13: "أدب عربي ولسانيات",
+    },
+  },
+  fr: {
+    nav: {
+      home: "Home",
+      about: "A propos",
+      api: "Api",
+    },
+  },
+  ar: {
+    nav: {
+      home: "الرئيسية",
+      about: "من نحن",
+      api: "Api",
+    },
+    domains: {
+      domain0: "كمبيوتر و الذكاء الاصطناعي",
+      domain1: "رياضيات و إحصائيات",
+      domain2: "طب",
+      domain3: "علم النفس",
+      domain4: "أحياء وعلوم طبيعية",
+      domain5: "كيمياء",
+      domain6: "فيزياء",
+      domain7: "علم الفلك",
+      domain7: "كهرباء",
+      domain8: "هندسة مدنية و معمارية",
+      domain9: "هندسة ميكانيكية",
+      domain10: "فلسفة",
+      domain11: "تاريخ و جغرافيا",
+      domain12: "علم الآثار",
+      domain13: "أدب عربي ولسانيات",
+    },
+  },
+};

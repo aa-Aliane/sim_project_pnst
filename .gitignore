@@ -1,0 +1,10 @@
+__*__*
+!__init__.py
+node_modules
+*.index
+*.json
+!package.json
+extracted
+.env
+alembic
+

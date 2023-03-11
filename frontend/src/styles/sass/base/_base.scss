@@ -1,0 +1,10 @@
+body {
+  background-color: var(--clr-neutral-300);
+  font-family: var(--ff-primary);
+  font-size: var(--fs-l);
+  font-weight: var(--fw-regular);
+}
+
+.app[data-lang='ar']{
+  direction: rtl;
+}
