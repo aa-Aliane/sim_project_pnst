@@ -1,0 +1,7 @@
+.textarea {
+    box-shadow: 0 0 .2rem .2rem var(--clr-primary-900);
+    border-radius: var(--dr);
+    padding: 2rem;
+    height: 25vh;
+    grid-column: 1 / 4;
+}

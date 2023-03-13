@@ -14,6 +14,9 @@
 textarea,
 input {
   outline: none;
+  border: none;
+  overflow: auto;
+  resize: none;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */

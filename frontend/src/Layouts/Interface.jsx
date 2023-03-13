@@ -1,13 +1,23 @@
 import React from "react";
+import { useLanguage } from "../store/LanguageState";
 
 const Interface = () => {
+  const text = useLanguage((state) => state.text.interface);
   return (
     <div className="interface">
-      <textarea name="" id="" cols="30" rows="10"></textarea>
-      <div className="btn-group">
-        <button className="btn btn--check">upload suspicious file</button>
-        <button className="btn btn--check">check for similarity</button>
-      </div>
+      {/* <textarea
+        className="textarea"
+        placeholder={text.suspicious}
+      ></textarea> */}
+
+      <button className="btn btn--check interface__upload">
+        <p>{text.upload}</p>
+        <span class="material-symbols-outlined">picture_as_pdf</span>
+      </button>
+      <button className="btn btn--check interface__check">
+        <p>{text.detect}</p>
+        <span class="material-symbols-outlined">plagiarism</span>
+      </button>
     </div>
   );
 };

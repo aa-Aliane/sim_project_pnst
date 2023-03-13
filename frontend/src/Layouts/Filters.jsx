@@ -1,6 +1,6 @@
 import React from "react";
 import { useLanguage } from "../store/LanguageState";
-import { useDropDowns } from "../store/clickState";
+import { useDropDowns, useSelectedFilters } from "../store/clickState";
 import Filter from "../components/filter";
 
 const Filters = () => {
@@ -11,6 +11,24 @@ const Filters = () => {
   const show_depots = useDropDowns((state) => state.depots);
   const switch_depots = useDropDowns((state) => state.switch_depots);
 
+  const all_domains = useSelectedFilters((state) => state.all_domains);
+  const switch_all_domains = useSelectedFilters(
+    (state) => state.switch_all_domains
+  );
+  const selected_domains = useSelectedFilters((state) => state.domains);
+  const change_selected_domain = useSelectedFilters(
+    (state) => state.switch_domain
+  );
+
+  const all_depots = useSelectedFilters((state) => state.all_depots);
+  const switch_all_depots = useSelectedFilters(
+    (state) => state.switch_all_depots
+  );
+  const selected_depots = useSelectedFilters((state) => state.depots);
+  const change_selected_depot = useSelectedFilters(
+    (state) => state.switch_depot
+  );
+
   console.log(depots);
   return (
     <ul className="filters">
@@ -19,10 +37,22 @@ const Filters = () => {
           filter={domains}
           display={show_domains}
           change={switch_domains}
+          selected={selected_domains}
+          change_selected={change_selected_domain}
+          all={all_domains}
+          switch_all={switch_all_domains}
         />
       </li>
       <li>
-        <Filter filter={depots} display={show_depots} change={switch_depots} />
+        <Filter
+          filter={depots}
+          display={show_depots}
+          change={switch_depots}
+          selected={selected_depots}
+          change_selected={change_selected_depot}
+          all={all_depots}
+          switch_all={switch_all_depots}
+        />
       </li>
     </ul>
   );

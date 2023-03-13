@@ -2,6 +2,7 @@
   --clr-primary-200: hsl(184deg, 58%, 90%);
   --clr-primary-400: hsl(184deg, 58%, 60%);
   --clr-primary-500: hsl(184deg, 58%, 50%);
+  --clr-primary-700: hsl(184deg, 58%, 20%);
   --clr-primary-900: hsl(184deg, 74%, 8%);
   --clr-neutral-100: hsl(0deg, 0%, 100%);
   --clr-neutral-200: hsl(0deg, 0%, 90%);
@@ -69,6 +70,19 @@
 
 .border-primary-500 {
   box-shadow: 0 0 0.5rem 0.5rem var(--clr-primary-500);
+  border-radius: 0.3rem;
+}
+
+.clr-primary-700 {
+  background-color: var(--clr-primary-700);
+}
+
+.text-primary-700 {
+  color: var(--clr-primary-700);
+}
+
+.border-primary-700 {
+  box-shadow: 0 0 0.5rem 0.5rem var(--clr-primary-700);
   border-radius: 0.3rem;
 }
 
@@ -481,6 +495,9 @@
 textarea,
 input {
   outline: none;
+  border: none;
+  overflow: auto;
+  resize: none;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -557,7 +574,29 @@ h3, h4, h5 {
 
 main {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  height: 90vh;
+  grid-template-columns: repeat(6, 2fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  font-size: var(--fs-s);
+  font-weight: var(--fw-medium);
+  border: none;
+  border-radius: var(--dr);
+}
+.btn--check {
+  background-color: var(--clr-primary-700);
+  color: var(--clr-neutral-100);
+}
+.btn--check:hover {
+  background-color: var(--clr-primary-200);
+  color: var(--clr-primary-900);
+  box-shadow: 0 0 0.2rem 0.2rem var(--clr-primary-900);
 }
 
 .nav {
@@ -571,8 +610,9 @@ main {
 }
 
 .filters {
+  grid-row: 1/3;
+  width: 100%;
   background-color: var(--clr-neutral-200);
-  width: fit-content;
   padding: 2rem;
 }
 
@@ -594,12 +634,6 @@ main {
 .filter__item[data-display=false] {
   display: none;
 }
-.filter__item span {
-  width: 0.8rem;
-  height: 0.8rem;
-  background-color: var(--clr-primary-200);
-  border: 0.1rem solid var(--clr-primary-900);
-}
 
 select {
   background-color: none;
@@ -614,8 +648,41 @@ option {
   padding: 1rem;
 }
 
+.textarea {
+  box-shadow: 0 0 0.2rem 0.2rem var(--clr-primary-900);
+  border-radius: var(--dr);
+  padding: 2rem;
+  height: 25vh;
+  grid-column: 1/4;
+}
+
+.checkbox {
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--clr-primary-200);
+  border: 0.1rem solid var(--clr-primary-900);
+}
+.checkbox:hover {
+  box-shadow: 0 0 0.2rem 0.1rem var(--clr-primary-700);
+}
+.checkbox[data-selected=true] {
+  background-color: var(--clr-primary-700);
+}
+
 .interface {
-  margin: auto;
+  grid-column: 3/5;
+  place-self: center;
+  width: 80%;
+  margin: auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 1rem;
+}
+.interface__upload {
+  grid-column: 1/2;
+}
+.interface__check {
+  grid-column: 3/4;
 }
 
 /*# sourceMappingURL=style.css.map */

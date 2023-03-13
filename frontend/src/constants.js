@@ -36,6 +36,11 @@ export const TextPerLang = {
         },
       },
     },
+    interface: {
+      suspicious: "enter suspicous texte here",
+      upload: "upload",
+      detect: "detect",
+    },
   },
   fr: {
     nav: {
@@ -73,6 +78,11 @@ export const TextPerLang = {
         },
       },
     },
+    interface: {
+      suspicious: "entrer le text suspect ici",
+      upload: "uploader",
+      detect: "détecter",
+    },
   },
   ar: {
     nav: {
@@ -109,6 +119,11 @@ export const TextPerLang = {
           depot1: "asjp",
         },
       },
+    },
+    interface: {
+      suspicious: "إدخال النص المنقول هنا",
+      upload: "تحميل",
+      detect: "كشف",
     },
   },
 };
