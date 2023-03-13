@@ -1,10 +1,18 @@
 body {
   background-color: var(--clr-neutral-300);
-  font-family: var(--ff-primary);
-  font-size: var(--fs-l);
-  font-weight: var(--fw-regular);
 }
 
-.app[data-lang='ar']{
+h3, h4, h5 {
+  font-weight: var(--fw-xxl);
+}
+.app {
+  font-size: var(--fs-m);
+  font-weight: var(--fw-regular);
+  font-family: var(--ff-latin);
+}
+
+.app[data-lang="ar"] {
   direction: rtl;
+  font-family: var(--ff-arabic);
+  color: var(--clr-primary-900);
 }

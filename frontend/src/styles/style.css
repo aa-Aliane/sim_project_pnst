@@ -1,9 +1,10 @@
 :root {
-  --clr-primary-200: hsl(184deg, 58%, 80%);
+  --clr-primary-200: hsl(184deg, 58%, 90%);
   --clr-primary-400: hsl(184deg, 58%, 60%);
   --clr-primary-500: hsl(184deg, 58%, 50%);
   --clr-primary-900: hsl(184deg, 74%, 8%);
   --clr-neutral-100: hsl(0deg, 0%, 100%);
+  --clr-neutral-200: hsl(0deg, 0%, 90%);
   --clr-neutral-500: hsl(0deg, 0%, 50%);
   --clr-neutral-900: hsl(0deg, 0%, 1%);
   --fs-s: 0.8rem;
@@ -25,8 +26,10 @@
   --s4: 3rem;
   --s5: 5rem;
   --s6: 6rem;
-  --ff-primary: "Poppins", sans-serif;
-  --default-radius: 0.4rem;
+  --ff-latin: "Poppins", sans-serif;
+  --ff-arabic: "Cairo", sans-serif;
+  --dr: 0.4rem;
+  --dr-sm: 0.2rem;
   --duration-1: 0.1s;
 }
 
@@ -92,6 +95,19 @@
 
 .border-neutral-100 {
   box-shadow: 0 0 0.5rem 0.5rem var(--clr-neutral-100);
+  border-radius: 0.3rem;
+}
+
+.clr-neutral-200 {
+  background-color: var(--clr-neutral-200);
+}
+
+.text-neutral-200 {
+  color: var(--clr-neutral-200);
+}
+
+.border-neutral-200 {
+  box-shadow: 0 0 0.5rem 0.5rem var(--clr-neutral-200);
   border-radius: 0.3rem;
 }
 
@@ -521,21 +537,85 @@ select {
 }
 body {
   background-color: var(--clr-neutral-300);
-  font-family: var(--ff-primary);
-  font-size: var(--fs-l);
+}
+
+h3, h4, h5 {
+  font-weight: var(--fw-xxl);
+}
+
+.app {
+  font-size: var(--fs-m);
   font-weight: var(--fw-regular);
+  font-family: var(--ff-latin);
 }
 
 .app[data-lang=ar] {
   direction: rtl;
+  font-family: var(--ff-arabic);
+  color: var(--clr-primary-900);
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
 }
 
 .nav {
   padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
 }
 .nav__items {
   display: flex;
   gap: 1rem;
+}
+
+.filters {
+  background-color: var(--clr-neutral-200);
+  width: fit-content;
+  padding: 2rem;
+}
+
+.filter * {
+  padding: 0.2rem;
+}
+.filter__title {
+  display: flex;
+  align-items: center;
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+}
+.filter__item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: var(--fs-s);
+}
+.filter__item[data-display=false] {
+  display: none;
+}
+.filter__item span {
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--clr-primary-200);
+  border: 0.1rem solid var(--clr-primary-900);
+}
+
+select {
+  background-color: none;
+  border: none;
+  padding: 0.2rem 1rem;
+}
+select::before {
+  background-color: red;
+}
+
+option {
+  padding: 1rem;
+}
+
+.interface {
+  margin: auto;
 }
 
 /*# sourceMappingURL=style.css.map */

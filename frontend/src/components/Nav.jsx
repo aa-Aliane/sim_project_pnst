@@ -19,30 +19,32 @@ const Nav = () => {
         <li>{text.home}</li>
         <li>{text.about}</li>
         <li>{text.api}</li>
-        <li>
-          <select name="" id="">
-            {Object.keys(languages).map((l) => {
-              console.log(l);
-              if (lang == l) {
-                return (
-                  <option
-                    value="{l}"
-                    selected
-                    onClick={() => HandleLanguageChange(l)}
-                  >
-                    {l}
-                  </option>
-                );
-              }
+      </ul>
+      <h3 className="nav__title">{text.title}</h3>
+      {/* language settings */}
+      <div>
+        <select name="" id="">
+          {Object.keys(languages).map((l) => {
+            console.log(l);
+            if (lang == l) {
               return (
-                <option value="{l}" onClick={() => HandleLanguageChange(l)}>
+                <option
+                  value="{l}"
+                  selected
+                  onClick={() => HandleLanguageChange(l)}
+                >
                   {l}
                 </option>
               );
-            })}
-          </select>
-        </li>
-      </ul>
+            }
+            return (
+              <option value="{l}" onClick={() => HandleLanguageChange(l)}>
+                {l}
+              </option>
+            );
+          })}
+        </select>
+      </div>
     </nav>
   );
 };

@@ -23,8 +23,10 @@
     --s#{$key}: #{$value};
   }
 
-  --ff-primary: "Poppins", sans-serif;
-  --default-radius: 0.4rem;
+  --ff-latin: "Poppins", sans-serif;
+  --ff-arabic: "Cairo", sans-serif;
+  --dr: 0.4rem;
+  --dr-sm: 0.2rem;
 
   --duration-1: 0.1s;
 }
@@ -45,8 +47,6 @@
     }
   }
 }
-
-
 
 //   fonts sizes
 @each $key, $value in $font-sizes {
