@@ -5,6 +5,7 @@ import { api } from "../services/api";
 import Nav from "../components/Nav";
 import Filters from "../Layouts/Filters";
 import Interface from "../Layouts/Interface";
+import Results from "../Layouts/Results";
 
 const Home = () => {
   return (
@@ -12,7 +13,8 @@ const Home = () => {
       <Nav />
       <main>
         <Filters />
-        <Interface />
+        {/* <Interface /> */}
+        <Results />
       </main>
     </div>
   );
