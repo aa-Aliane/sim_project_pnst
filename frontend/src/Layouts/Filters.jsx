@@ -1,7 +1,7 @@
 import React from "react";
 import { useLanguage } from "../store/LanguageState";
-import { useDropDowns, useSelectedFilters } from "../store/clickState";
-import Filter from "../components/filter";
+import { useDropDowns, useSelectedFilters } from "../store/ClickState";
+import Filter from "../components/Filter";
 
 const Filters = () => {
   const domains = useLanguage((state) => state.text.filters.domains);

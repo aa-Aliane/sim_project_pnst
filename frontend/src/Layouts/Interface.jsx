@@ -5,10 +5,7 @@ const Interface = () => {
   const text = useLanguage((state) => state.text.interface);
   return (
     <div className="interface">
-      {/* <textarea
-        className="textarea"
-        placeholder={text.suspicious}
-      ></textarea> */}
+      <textarea className="textarea" placeholder={text.suspicious}></textarea>
 
       <button className="btn btn--check interface__upload">
         <p>{text.upload}</p>

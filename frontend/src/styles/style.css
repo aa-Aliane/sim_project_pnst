@@ -1,13 +1,13 @@
 :root {
-  --clr-primary-200: hsl(184deg, 58%, 90%);
-  --clr-primary-400: hsl(184deg, 58%, 60%);
-  --clr-primary-500: hsl(184deg, 58%, 50%);
-  --clr-primary-700: hsl(184deg, 58%, 20%);
-  --clr-primary-900: hsl(184deg, 74%, 8%);
-  --clr-neutral-100: hsl(0deg, 0%, 100%);
-  --clr-neutral-200: hsl(0deg, 0%, 90%);
-  --clr-neutral-500: hsl(0deg, 0%, 50%);
-  --clr-neutral-900: hsl(0deg, 0%, 1%);
+  --clr-primary-200: hsl(184, 58%, 90%);
+  --clr-primary-400: hsl(184, 58%, 60%);
+  --clr-primary-500: hsl(184, 58%, 50%);
+  --clr-primary-700: hsl(184, 58%, 20%);
+  --clr-primary-900: hsl(184, 74%, 8%);
+  --clr-neutral-100: hsl(0, 0%, 100%);
+  --clr-neutral-200: hsl(0, 0%, 90%);
+  --clr-neutral-500: hsl(0, 0%, 50%);
+  --clr-neutral-900: hsl(0, 0%, 1%);
   --fs-s: 0.8rem;
   --fs-m: 1rem;
   --fs-l: 1.2rem;
@@ -544,8 +544,8 @@ select {
     scroll-behavior: auto;
   }
   *,
-*::before,
-*::after {
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -629,7 +629,6 @@ main {
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  font-size: var(--fs-s);
 }
 .filter__item[data-display=false] {
   display: none;
