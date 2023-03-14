@@ -1,12 +1,65 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { usePagination } from "../store/PaginationState";
 
+export const PaginationInfo = ({ nb_results }) => {
+  const results_per_page = usePagination((state) => state.results_per_page);
+  const set_results_per_page = usePagination(
+    (state) => state.set_results_per_page
+  );
+  const set_nb_pages = usePagination((state) => state.set_nb_pages);
+  const set_all_pages = usePagination((state) => state.set_all_pages);
+  const current_page = usePagination((state) => state.current_page);
+  const all_pages = usePagination((state) => state.all_pages);
 
-export const PaginationSettings = () => {
+  useEffect(() => {
+    let i = 0;
+    if (nb_results % results_per_page) i = 1;
 
-  return <div>Pagination</div>;
+    const nb_pages = Math.floor(nb_results / results_per_page) + i;
+    set_nb_pages(Math.min(nb_pages, 10));
+    set_all_pages(nb_pages);
+  }, [, nb_results, results_per_page]);
+
+  return (
+    <div className="pagination__info">
+      <p>
+        {current_page}/{all_pages}
+      </p>
+      <ul>
+        <li onClick={() => set_results_per_page(10)}>10</li>
+        <li onClick={() => set_results_per_page(20)}>20</li>
+        <li onClick={() => set_results_per_page(50)}>50</li>
+      </ul>
+    </div>
+  );
 };
 
-export const Pagination = ({ pages }) => {
-  return <div>Pagination</div>;
+export const Pagination = () => {
+  const pages = usePagination((state) => state.pages);
+  const pages_selected = usePagination((state) => state.pages_selected);
+  const current_page = usePagination((state) => state.current_page);
+  const set_current_page = usePagination((state) => state.set_current_page);
+  const set_pages = usePagination((state) => state.set_pages);
+  const all_pages = usePagination((state) => state.all_pages);
+  return (
+    <div className="pagination__pages">
+      {pages &&
+        pages.map((page, i) => (
+          <button
+            data-selected={i + 1 === current_page}
+            className="btn btn--pagination"
+            onClick={() => {
+              set_current_page(page);
+              if (page > 6) {
+                set_pages(page - 5, Math.min(page + 4, all_pages));
+              } else {
+                set_pages(1, min(10, all_pages));
+              }
+            }}
+          >
+            {page}
+          </button>
+        ))}
+    </div>
+  );
 };
