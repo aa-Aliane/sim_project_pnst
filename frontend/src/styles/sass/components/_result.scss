@@ -1,0 +1,14 @@
+.result {
+  width: 100%;
+  background-color: var(--clr-primary-700);
+  color: var(--clr-neutral-100);
+  padding: 1rem 2rem;
+
+  &__title {
+    font-size: var(--fs-s);
+    max-width: 80ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -47,11 +47,16 @@ async def most_similar(query: Query):
     q = ud.normalize("NFKD", query.content)
 
     res = query_index.search(q, query.k)
-    print(type(res))
+
     results = (
         db.session.query(docs_models.Document)
-        .filter(docs_models.Document.repo_id.in_(res))
+        .filter(docs_models.Document.repo_id.in_([r["id"] for r in res]))
         .all()
     )
-    titles = [{"title": doc.title} for doc in results]
-    return {"most similar docs": titles}
+    print("jjjjjj")
+    response = [
+        {"title": doc.title, "rate": rate}
+        for doc, rate in zip(results, [r["rate"] for r in res])
+    ]
+
+    return {"response": response}

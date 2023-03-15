@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { usePagination } from "../store/PaginationState";
+import { useLanguage } from "../store/LanguageState";
 
 export const PaginationInfo = ({ nb_results }) => {
   const results_per_page = usePagination((state) => state.results_per_page);
@@ -10,6 +11,8 @@ export const PaginationInfo = ({ nb_results }) => {
   const set_all_pages = usePagination((state) => state.set_all_pages);
   const current_page = usePagination((state) => state.current_page);
   const all_pages = usePagination((state) => state.all_pages);
+  const set_current_page = usePagination((state) => state.set_current_page);
+  const lang = useLanguage((state) => state.current_language);
 
   useEffect(() => {
     let i = 0;
@@ -25,10 +28,31 @@ export const PaginationInfo = ({ nb_results }) => {
       <p>
         {current_page}/{all_pages}
       </p>
-      <ul>
-        <li onClick={() => set_results_per_page(10)}>10</li>
-        <li onClick={() => set_results_per_page(20)}>20</li>
-        <li onClick={() => set_results_per_page(50)}>50</li>
+      <ul data-lang={lang}>
+        <li
+          onClick={() => {
+            set_results_per_page(10);
+            set_current_page(1);
+          }}
+        >
+          10
+        </li>
+        <li
+          onClick={() => {
+            set_results_per_page(20);
+            set_current_page(1);
+          }}
+        >
+          20
+        </li>
+        <li
+          onClick={() => {
+            set_results_per_page(50);
+            set_current_page(1);
+          }}
+        >
+          50
+        </li>
       </ul>
     </div>
   );
