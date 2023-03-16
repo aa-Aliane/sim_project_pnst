@@ -46,6 +46,12 @@ async def home():
             db_doc.type = doc.get("Type de document")
             db_doc.lang = doc.get("Langue")
             db_doc.abstract = doc.get("Résumé")
+
+            if "Theme" in doc.keys():
+                db_doc.domain = doc.get("Theme")
+            if "url" in doc.keys():
+                db_doc.url = doc.get("url")
+                
             docs_to_add.append(db_doc)
     db.session.bulk_save_objects(docs_to_add)
     db.session.commit()

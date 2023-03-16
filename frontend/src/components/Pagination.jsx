@@ -70,14 +70,16 @@ export const Pagination = () => {
       {pages &&
         pages.map((page, i) => (
           <button
-            data-selected={i + 1 === current_page}
+            data-selected={page === current_page}
             className="btn btn--pagination"
             onClick={() => {
               set_current_page(page);
-              if (page > 6) {
+              if (page > 6 && all_pages > 10) {
+                set_current_page(page);
                 set_pages(page - 5, Math.min(page + 4, all_pages));
               } else {
-                set_pages(1, min(10, all_pages));
+                console.log("pageeeeeeeee", page);
+                set_pages(1, Math.min(10, all_pages));
               }
             }}
           >

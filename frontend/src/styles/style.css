@@ -723,13 +723,27 @@ option {
   background-color: var(--clr-primary-700);
   color: var(--clr-neutral-100);
   padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 .result__title {
   font-size: var(--fs-s);
-  max-width: 80ch;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  grid-column: 1/4;
+}
+.result__rate {
+  grid-column: 4/6;
+  margin-left: auto;
+}
+.result__deep {
+  grid-column: 4/6;
+  margin-left: auto;
+}
+
+a {
+  color: var(--clr-neutral-100);
+}
+a:hover {
+  color: var(--clr-primary-200);
 }
 
 .interface {

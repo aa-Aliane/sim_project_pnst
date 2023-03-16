@@ -15,8 +15,8 @@ class Query(BaseModel):
 
 app = FastAPI()
 
-BASE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
-load_dotenv(BASE_DIR)
+ENV_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+load_dotenv(ENV_PATH)
 
 origins = [
     "http://localhosts",
@@ -55,7 +55,7 @@ async def most_similar(query: Query):
     )
     print("jjjjjj")
     response = [
-        {"title": doc.title, "rate": rate}
+        {"title": doc.title, "rate": rate, "url": doc.url}
         for doc, rate in zip(results, [r["rate"] for r in res])
     ]
 

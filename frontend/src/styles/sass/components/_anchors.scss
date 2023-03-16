@@ -1,0 +1,7 @@
+a {
+  color: var(--clr-neutral-100);
+
+  &:hover {
+    color: var(--clr-primary-200);
+  }
+}

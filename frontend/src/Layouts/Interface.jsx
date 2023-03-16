@@ -20,7 +20,7 @@ const Interface = () => {
     api
       .post("most_similar/", {
         content: text,
-        k: 5,
+        k: 1000,
       })
       .then((res) => {
         console.log("🚀 ~ file: Interface.jsx:22 ~ .then ~ res:", res);
