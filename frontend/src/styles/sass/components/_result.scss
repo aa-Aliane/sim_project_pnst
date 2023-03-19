@@ -20,8 +20,18 @@
     margin-left: auto;
   }
 
+  &__authors {
+    font-size: var(--fs-s);
+
+    &__author:first-of-type {
+      margin-top: 1rem;
+      font-weight: var(--fw-semi-bold);
+    }
+  }
+
   &__deep {
     grid-column: 4/6;
     margin-left: auto;
+    margin-top: auto;
   }
 }

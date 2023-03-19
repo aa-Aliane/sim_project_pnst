@@ -53,9 +53,10 @@ async def most_similar(query: Query):
         .filter(docs_models.Document.repo_id.in_([r["id"] for r in res]))
         .all()
     )
-    print("jjjjjj")
+    for doc in results:
+        print(doc.authors, 'hhhh')
     response = [
-        {"title": doc.title, "rate": rate, "url": doc.url}
+        {"title": doc.title, "rate": rate, "url": doc.url, "authors": doc.authors}
         for doc, rate in zip(results, [r["rate"] for r in res])
     ]
 

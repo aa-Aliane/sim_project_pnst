@@ -6,13 +6,13 @@ import time
 
 
 model = SentenceTransformer(
-    "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    "xlm-roberta-base"
 )
 
 BASE_DIR = os.path.dirname(__file__)
 
 
-index = faiss.read_index("src/core/pnst.index")
+index = faiss.read_index("src/core/pnst_mean.index")
 
 
 with open("src/core/index_to_ids.json", "r", encoding="utf8") as f:
@@ -24,7 +24,7 @@ def search(query, top_k):
     query_vector = model.encode([query])
     rates, top_k = index.search(query_vector, top_k)
     rates = rates[0]
-    print(rates, type(rates[0]))
+
     rates = [100 * float(rate) // 10 for rate in rates]
 
     print(">>>> Results in Total Time: {}".format(time.time() - t))

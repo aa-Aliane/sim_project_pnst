@@ -39,9 +39,9 @@ for doc in tqdm(meta):
                 "role": re.sub(r"\)", "", re.sub(r".*\(", "", all_)),
             }
             for all_ in auteurs
+            if all_
         ]
 
-        db_author = docs_models.Author()
         document_id = (
             session.query(docs_models.Document)
             .filter(docs_models.Document.title == doc.get("Titre"))
@@ -50,14 +50,15 @@ for doc in tqdm(meta):
         )
 
         for auteur in auteurs:
+            db_author = docs_models.Author()
             db_author.full_name = auteur.get("fullname")
             all_auteurs.append(db_author)
-            author_role.append({"document_id": document_id})
+            author_role_item = auteur | {"document_id": document_id}
+            author_role.append(author_role_item)
 
-try:
-    session.bulk_save_objects(all_auteurs)
-except:
-    pass
+
+session.bulk_save_objects(all_auteurs)
+
 
 roles = []
 for role in tqdm(author_role):
@@ -70,31 +71,11 @@ for role in tqdm(author_role):
 
     db_role = docs_models.Doc_Author()
     db_role.author_id = author_id
-    db_role.book_id = role.get("document_id")
+    db_role.document_id = role.get("document_id")
     db_role.role = role.get("role")
-    roles.append(role)
+    roles.append(db_role)
 
 session.bulk_save_objects(roles)
 
 
-# document_id = session.query(docs_models.Document).filter(docs_models.Document.title == doc.get('Titre')).first().id
-
-
-#     if doc.get("Titre"):
-#         db_doc = docs_models.Document()
-#         db_doc.repo_id = doc.get("id")
-#         db_doc.source = doc.get("source")
-
-#         db_doc.title = doc.get("Titre")
-#         db_doc.type = doc.get("Type de document")
-#         db_doc.lang = doc.get("Langue")
-#         db_doc.abstract = doc.get("Résumé")
-
-#         if "Theme" in doc.keys():
-#             db_doc.domain = doc.get("Theme")
-#         if "url" in doc.keys():
-#             db_doc.url = doc.get("url")
-
-#         docs_to_add.append(db_doc)
-# session.bulk_save_objects(docs_to_add)
-# session.commit()
+session.commit()
