@@ -14,4 +14,8 @@
   &__check {
     grid-column: 3 /4;
   }
+
+  &__upload[type="file"] {
+    display: none;
+  }
 }
