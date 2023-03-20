@@ -1,5 +1,7 @@
 import React from "react";
 import { useLanguage } from "../store/LanguageState";
+import { useLayout } from "../store/LayoutState";
+import { useModel } from "../store/ModelState";
 
 const Nav = () => {
   //   useLanguage methods and variables
@@ -7,18 +9,52 @@ const Nav = () => {
   const languages = useLanguage((state) => state.languages);
   const text = useLanguage((state) => state.text.nav);
   const change_language = useLanguage((state) => state.change_language);
+  const current_layout = useLayout((state) => state.current_layout);
+  const set_current_layout = useLayout((state) => state.set_current_layout);
+  const set_suspicious = useModel((state) => state.set_suspicious);
 
+  // handles language change
   const HandleLanguageChange = (l) => {
-    console.log("🚀 ~ file: Nav.jsx:12 ~ HandleLanguageChange ~ l:", l);
-
     change_language(l);
+  };
+  // handles layout change
+  const HandleLayoutChange = (l) => {
+    set_current_layout(l);
+    set_suspicious("");
   };
   return (
     <nav className="nav">
       <ul className="nav__items">
-        <li>{text.home}</li>
-        <li>{text.about}</li>
-        <li>{text.api}</li>
+        <li>
+          <a
+            data-current={current_layout === "interface"}
+            className="a a--nav"
+            href="#"
+            onClick={() => HandleLayoutChange("interface")}
+          >
+            {text.home}
+          </a>
+        </li>
+        <li>
+          <a
+            data-current={current_layout === "about"}
+            className="a a--nav"
+            href="#"
+            onClick={() => HandleLayoutChange("about")}
+          >
+            {text.about}
+          </a>
+        </li>
+        <li>
+          <a
+            data-current={current_layout === "api"}
+            className="a a--nav"
+            href="#"
+            onClick={() => HandleLayoutChange("api")}
+          >
+            {text.api}
+          </a>
+        </li>
       </ul>
       <h3 className="nav__title">{text.title}</h3>
       {/* language settings */}

@@ -9,10 +9,11 @@ from .core import query_index
 from .schemas import SimpleQuery, FileQuery
 from .utils import clean_text
 
-import os
+import os, re
 from dotenv import load_dotenv
 import textract
 import unicodedata as ud
+import langdetect as ld
 
 app = FastAPI()
 
@@ -34,7 +35,6 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-
 
 
 @app.get("/api/")
@@ -67,15 +67,14 @@ async def most_similar(query: SimpleQuery):
 
 
 @app.post("/api/most_similar_file/")
-async def most_similar_file(file: UploadFile = File(...), k : int = 5):
-    
+async def most_similar_file(file: UploadFile = File(...), k: int = 5):
+
     content = file
 
     if content.filename.endswith(".txt"):
         contents = await content.read()
         text = contents.decode("utf-8")
         cleaned_text = clean_text(text)
-        
 
     else:
         contents = await content.read()
@@ -96,7 +95,13 @@ async def most_similar_file(file: UploadFile = File(...), k : int = 5):
     )
 
     response = [
-        {"title": doc.title, "rate": rate, "url": doc.url, "authors": doc.authors}
+        {
+            "title": re.sub(r"\[.*", "", doc.title),
+            "rate": rate,
+            "url": doc.url,
+            "authors": doc.authors,
+            "lang": ld.detect(doc.title),
+        }
         for doc, rate in zip(results, [r["rate"] for r in res])
     ]
 

@@ -1,11 +1,23 @@
 .interface {
-  grid-column: 3 / 5;
+  grid-column: 5 / 8;
   place-self: center;
-  width: 80%;
+  width: 95%;
   margin: auto 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   row-gap: 1rem;
+
+  &__cancel {
+    grid-column: 3 / 4;
+    margin-left: auto;
+  }
+
+  &__text {
+    grid-column: 1 / 4;
+    box-shadow: 0 0 .2rem .2rem var(--clr-primary-900);
+    border-radius: var(--dr);
+    padding: 2rem;
+  }
 
   &__upload {
     grid-column: 1 /2;

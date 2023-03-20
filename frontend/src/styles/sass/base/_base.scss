@@ -2,8 +2,9 @@ body {
   background-color: var(--clr-neutral-300);
 }
 
-h3, h4, h5 {
+h3, h4, h5, p {
   font-weight: var(--fw-xxl);
+  line-height: 2rem;
 }
 .app {
   font-size: var(--fs-m);
@@ -13,6 +14,7 @@ h3, h4, h5 {
 
 .app[data-lang="ar"] {
   direction: rtl;
+  font-size: var(--fs-ar);
   font-family: var(--ff-arabic);
   color: var(--clr-primary-900);
 }

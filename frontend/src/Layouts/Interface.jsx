@@ -25,7 +25,7 @@ const Interface = () => {
 
   // Handle plagiarism detection
   const HandlePlagiarismDetection = (text) => {
-    console.log(text)
+    console.log(text);
     if (typeof text === "string") {
       let data = {
         content: text,
@@ -51,14 +51,27 @@ const Interface = () => {
   };
   return (
     <form className="interface" onSubmit={HandleSubmit}>
-      <textarea
-        className="textarea"
-        placeholder={text.suspicious}
-        onChange={(e) => set_suspicious(e.target.value)}
-      ></textarea>
+      <button
+        data-display={fromFile}
+        className="interface__cancel btn btn--cancel"
+        onClick={() => {
+          set_suspicious("");
+          setFromFile(false);
+        }}
+      >
+        <span class="material-symbols-outlined">backspace</span>
+      </button>
+      {!fromFile && (
+        <textarea
+          className="interface__text textarea"
+          placeholder={text.suspicious}
+          onChange={(e) => set_suspicious(e.target.value)}
+        ></textarea>
+      )}
       {/* <button className="btn btn--check interface__upload">
         
         </button> */}
+      {fromFile && <p className="interface__text">{suspicious.name}</p>}
       <label className="btn btn--check interface__upload" htmlFor="file-input">
         <p>{text.upload}</p>
         <span class="material-symbols-outlined">picture_as_pdf</span>
@@ -69,7 +82,11 @@ const Interface = () => {
         type="file"
         onChange={handleFileUpload}
       />
-      <button className="btn btn--check interface__check" type="submit">
+      <button
+        data-enabled={suspicious !== ""}
+        className="btn btn--check interface__check"
+        type="submit"
+      >
         <p>{text.detect}</p>
         <span class="material-symbols-outlined">plagiarism</span>
       </button>
