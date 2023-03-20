@@ -10,6 +10,11 @@
   &__cancel {
     grid-column: 3 / 4;
     margin-left: auto;
+
+    &[data-dir="true"]{
+      margin-left: 0;
+      margin-right: auto;
+    }
   }
 
   &__text {

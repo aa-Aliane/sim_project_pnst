@@ -7,13 +7,16 @@
   grid-template-columns: repeat(4, 1fr);
 
   &__title {
-    font-size: var(--fs-l);
-    font-weight: var(--fw-bold);
+    font-size: var(--fs-m);
+    font-weight: var(--fw-semi-bold);
     grid-column: 1 / 4;
+    margin-right: auto;
+    padding-left: 0;
 
     &[data-rlang="ar"] {
       font-family: var(--ff-arabic);
       font-weight: var(--fw-bold);
+      text-align: right;
     }
     // max-width: 80ch;
     // white-space: nowrap;
@@ -27,7 +30,7 @@
   }
 
   &__authors {
-    font-size: var(--fs-m);
+    font-size: var(--fs-s);
     font-weight: var(--fw-medium);
 
     &[data-rlang="ar"] {

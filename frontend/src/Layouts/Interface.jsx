@@ -4,12 +4,14 @@ import { api, api_form } from "../services/api";
 import { useLayout } from "../store/LayoutState";
 import { useModel } from "../store/ModelState";
 
+
 const Interface = () => {
   const suspicious = useModel((state) => state.suspicious);
   const set_suspicious = useModel((state) => state.set_suspicious);
   const set_results = useModel((state) => state.set_results);
   const text = useLanguage((state) => state.text.interface);
   const set_current_layout = useLayout((state) => state.set_current_layout);
+  const current_lang = useLanguage(state => state.current_language)
   const [fromFile, setFromFile] = useState(false);
 
   const handleFileUpload = (event) => {
@@ -53,6 +55,7 @@ const Interface = () => {
     <form className="interface" onSubmit={HandleSubmit}>
       <button
         data-display={fromFile}
+        data-dir={current_lang === "ar"}
         className="interface__cancel btn btn--cancel"
         onClick={() => {
           set_suspicious("");

@@ -59,7 +59,13 @@ async def most_similar(query: SimpleQuery):
     )
 
     response = [
-        {"title": doc.title, "rate": rate, "url": doc.url, "authors": doc.authors}
+        {
+            "title": re.sub(r"\[.*", "", doc.title),
+            "rate": rate,
+            "url": doc.url,
+            "authors": doc.authors,
+            "lang": ld.detect(doc.title),
+        }
         for doc, rate in zip(results, [r["rate"] for r in res])
     ]
 
