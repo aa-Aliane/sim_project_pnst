@@ -6,6 +6,7 @@ node_modules
 !package.json
 extracted
 .env
-alembic
+versions
+alembic.ini
 gpu
 

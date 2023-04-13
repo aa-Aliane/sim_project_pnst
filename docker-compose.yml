@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  db:
+    container_name: ps_db
+    image: postgres
+    restart: always
+    ports:
+      - 5433:5433
+    env_file:
+      - ./env/postgres.env
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  backend:
+    container_name: api
+    build:
+      context: .
+      dockerfile: dockerfiles/backend.dockerfile
+    depends_on:
+      - db
+      - backend_utility
+
+  backend_utility:
+    container_name: alembic
+    build:
+      context: .
+      dockerfile: dockerfiles/backend.dockerfile
+    entrypoint: ["alembic"]
+    command: ["sh", "initial_migration.sh"]
+    depends_on:
+      - db
+
+  frontend:
+    container_name: client
+    build:
+      context: .
+      dockerfile: dockerfiles/frontend.dockerfile
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
+    driver: local

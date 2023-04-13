@@ -1,5 +1,4 @@
 #!/bin/bash
-python data/drop_tables.py
 alembic revision --autogenerate -m "New Migration"
 alembic upgrade head
 

@@ -3,6 +3,7 @@ import { useLanguage } from "../store/LanguageState";
 import { api, api_form } from "../services/api";
 import { useLayout } from "../store/LayoutState";
 import { useModel } from "../store/ModelState";
+import { useToggleMenu } from "../store/General";
 
 const Interface = () => {
   const suspicious = useModel((state) => state.suspicious);
@@ -11,6 +12,8 @@ const Interface = () => {
   const text = useLanguage((state) => state.text.interface);
   const set_current_layout = useLayout((state) => state.set_current_layout);
   const [fromFile, setFromFile] = useState(false);
+
+  const menu_toggled = useToggleMenu((state) => state.toggle);
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
@@ -50,7 +53,11 @@ const Interface = () => {
     }
   };
   return (
-    <form className="interface" onSubmit={HandleSubmit}>
+    <form
+      className="interface"
+      onSubmit={HandleSubmit}
+      data-opened={menu_toggled}
+    >
       <button
         data-display={fromFile}
         className="interface__cancel btn btn--cancel"

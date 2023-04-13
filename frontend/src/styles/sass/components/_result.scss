@@ -5,9 +5,12 @@
   padding: 1rem 2rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  position: relative;
+
+
 
   &__title {
-    font-size: var(--fs-l);
+    font-size: var(--fs-m);
     font-weight: var(--fw-bold);
     grid-column: 1 / 4;
 
@@ -27,7 +30,7 @@
   }
 
   &__authors {
-    font-size: var(--fs-m);
+    font-size: var(--fs-s);
     font-weight: var(--fw-medium);
 
     &[data-rlang="ar"] {

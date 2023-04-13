@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLanguage } from "../store/LanguageState";
 import { useDropDowns, useSelectedFilters } from "../store/ClickState";
 import Filter from "../components/Filter";
+import { useToggleMenu } from "../store/General";
 
 const Filters = () => {
   const domains = useLanguage((state) => state.text.filters.domains);
@@ -29,9 +30,17 @@ const Filters = () => {
     (state) => state.switch_depot
   );
 
-  console.log(depots);
+  const toggle = useToggleMenu((state) => state.toggle);
+  const switch_toggle = useToggleMenu((state) => state.switch_toggle);
+
   return (
-    <ul className="filters">
+    <ul className="filters" data-opened={toggle}>
+      <span
+        className="material-symbols-outlined filters__toggle"
+        onClick={() => switch_toggle()}
+      >
+        menu
+      </span>
       <li>
         <Filter
           filter={domains}
