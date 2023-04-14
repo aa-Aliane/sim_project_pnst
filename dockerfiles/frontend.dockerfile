@@ -8,6 +8,6 @@ RUN npm i
 
 COPY frontend .
 
-CMD [ "npm", "run", "dev", "--", "--host"]
+CMD [ "npm", "run", "build"]
 
 EXPOSE 5173
