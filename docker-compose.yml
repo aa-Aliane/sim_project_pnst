@@ -2,7 +2,7 @@ version: "3.8"
 services:
   server-img:
     container_name: server
-    image: nginx:alpine3
+    image: nginx:alpine3.17
     restart: always
     ports:
       - 8081:80
