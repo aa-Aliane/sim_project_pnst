@@ -4,7 +4,32 @@
   width: 100%;
   background-color: var(--clr-neutral-200);
   padding: 2rem;
+  position: relative;
+
+  &__toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: default;
+  }
+
+  &[data-opened='false']{
+    grid-column: 1 / 2;
+    width: 0;
+    overflow: hidden;
+    transition: width var(--duration) linear;
+
+    & li {
+      width: 0;
+      overflow: hidden;
+    }
+  }
+
+  
 }
+
+
+
 .filter {
   & * {
     padding: 0.2rem;

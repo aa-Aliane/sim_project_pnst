@@ -1,0 +1,73 @@
+version: "3.8"
+services:
+  db:
+    container_name: ps_db
+    image: postgres:15-alpine3.17
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - ./env/postgres.env
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - db_network
+
+  backend:
+    container_name: api
+    build:
+      context: .
+      dockerfile: dockerfiles/backend.dockerfile
+    command:
+      [
+        "uvicorn",
+        "src.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+        "--reload",
+      ]
+    ports:
+      - 8000:8000
+    volumes:
+      - migrations:/code/alembic/versions
+      - ./api/src:/code/src
+    networks:
+      - db_network
+    depends_on:
+      - db
+      - backend_utility
+
+  # backend_utility:
+  #   container_name: alembic
+  #   build:
+  #     context: .
+  #     dockerfile: dockerfiles/backend.dockerfile
+  #   entrypoint: ["alembic"]
+  #   volumes:
+  #     - migrations:/code/alembic/versions
+  #   networks:
+  #     - db_network
+  #   depends_on:
+  #     - db
+
+  frontend:
+    container_name: client
+    build:
+      context: .
+      dockerfile: dockerfiles/frontend.dockerfile
+    command: ["npm", "run", "dev", "--", "--host"]
+    ports:
+      - 5173:5173
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
+    driver: local
+  migrations:
+
+networks:
+  db_network:
+    driver: bridge

@@ -10,6 +10,7 @@ from .schemas import SimpleQuery, FileQuery
 from .utils import clean_text
 
 import os, re
+import tempfile
 from dotenv import load_dotenv
 import textract
 import unicodedata as ud
@@ -17,7 +18,7 @@ import langdetect as ld
 
 app = FastAPI()
 
-ENV_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+ENV_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "backend.env")
 load_dotenv(ENV_PATH)
 
 origins = [
@@ -79,18 +80,25 @@ async def most_similar_file(file: UploadFile = File(...), k: int = 5):
 
     if content.filename.endswith(".txt"):
         contents = await content.read()
-        text = contents.decode("utf-8")
+        # text = contents.decode("utf-8")
         cleaned_text = clean_text(text)
 
     else:
         contents = await content.read()
-        if content.filename.endswith(".pdf"):
-            text = textract.process(contents).decode("utf-8")
-        elif content.filename.endswith(".docx"):
-            text = textract.process(contents, method="python-docx").decode("utf-8")
+        with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+            tmp_file.write(contents)
+            tmp_file_path = tmp_file.name
 
-        text = ud.normelize("NFKD", text)
+        if content.filename.endswith(".pdf"):
+            text = textract.process(tmp_file_path).decode("utf-8")
+        elif content.filename.endswith(".docx"):
+            text = textract.process(tmp_file_path, method="python-docx").decode("utf-8")
+
+        os.unlink(tmp_file_path)
+
+        text = ud.normalize("NFKD", text)
         cleaned_text = clean_text(text)
+        print(cleaned_text)
 
     res = query_index.search(cleaned_text, k)
 

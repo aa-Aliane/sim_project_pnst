@@ -3,6 +3,7 @@ import { useLanguage } from "../store/LanguageState";
 import { api, api_form } from "../services/api";
 import { useLayout } from "../store/LayoutState";
 import { useModel } from "../store/ModelState";
+import { useToggleMenu } from "../store/General";
 
 
 const Interface = () => {
@@ -13,6 +14,8 @@ const Interface = () => {
   const set_current_layout = useLayout((state) => state.set_current_layout);
   const current_lang = useLanguage(state => state.current_language)
   const [fromFile, setFromFile] = useState(false);
+
+  const menu_toggled = useToggleMenu((state) => state.toggle);
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
@@ -52,7 +55,11 @@ const Interface = () => {
     }
   };
   return (
-    <form className="interface" onSubmit={HandleSubmit}>
+    <form
+      className="interface"
+      onSubmit={HandleSubmit}
+      data-opened={menu_toggled}
+    >
       <button
         data-display={fromFile}
         data-dir={current_lang === "ar"}

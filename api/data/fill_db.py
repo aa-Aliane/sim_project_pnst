@@ -6,16 +6,16 @@ from dotenv import load_dotenv
 import os, sys, json, re
 from tqdm import tqdm
 
-ENV_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
+ENV_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "backend.env")
 load_dotenv(ENV_PATH)
 
-DOCS_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "src")
+DOCS_PATH = os.path.dirname(os.path.dirname(__file__))
 BASE_DIR = os.path.dirname(__file__)
 
 sys.path.append(DOCS_PATH)
 
 
-import models as docs_models
+import src.models as docs_models
 
 
 with open(os.path.join(BASE_DIR, "enhanced.pnst_meta.json"), "r", encoding="utf8") as f:
@@ -69,3 +69,7 @@ for doc in tqdm(meta):
 session.add_all(docs_to_add + authors_to_add)
 # session.bulk_save_objects(authors_to_add)
 session.commit()
+
+
+
+# build a function that calc the sum
