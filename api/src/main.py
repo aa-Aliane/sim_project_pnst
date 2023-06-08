@@ -22,7 +22,8 @@ ENV_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "backend.env
 load_dotenv(ENV_PATH)
 
 origins = [
-    "http://localhosts",
+    "http://localhost",
+    "http://localhost:5173",
     "http://127.0.0.1",
     "http://127.0.0.1:5173",
 ]

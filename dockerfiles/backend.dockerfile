@@ -9,6 +9,7 @@ COPY api/migrate.sh .
 
 
 RUN pip install --upgrade pip
+RUN pip install torch --index-url https://download.pytorch.org/whl/cpu
 RUN pip install -r /code/req.txt
 
 COPY api/src ./src

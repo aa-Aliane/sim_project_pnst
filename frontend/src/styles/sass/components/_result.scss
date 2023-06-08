@@ -11,11 +11,8 @@
 
   &__title {
     font-size: var(--fs-m);
-<<<<<<< HEAD
     font-weight: var(--fw-semi-bold);
-=======
     font-weight: var(--fw-bold);
->>>>>>> a45802643edc38b5b3e688609b02b9a626278341
     grid-column: 1 / 4;
     margin-right: auto;
     padding-left: 0;
@@ -24,6 +21,8 @@
       font-family: var(--ff-arabic);
       font-weight: var(--fw-bold);
       text-align: right;
+      margin-right: 0;
+      margin-left: auto;
     }
     // max-width: 80ch;
     // white-space: nowrap;
