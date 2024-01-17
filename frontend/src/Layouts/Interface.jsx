@@ -4,7 +4,7 @@ import { api, api_form } from "../services/api";
 import { useLayout } from "../store/LayoutState";
 import { useModel } from "../store/ModelState";
 import { useToggleMenu } from "../store/General";
-
+import { useResultStore } from "../store/ResultState";
 
 const Interface = () => {
   const suspicious = useModel((state) => state.suspicious);
@@ -12,7 +12,8 @@ const Interface = () => {
   const set_results = useModel((state) => state.set_results);
   const text = useLanguage((state) => state.text.interface);
   const set_current_layout = useLayout((state) => state.set_current_layout);
-  const current_lang = useLanguage(state => state.current_language)
+  const current_lang = useLanguage((state) => state.current_language);
+  const { setTarget } = useResultStore();
   const [fromFile, setFromFile] = useState(false);
 
   const menu_toggled = useToggleMenu((state) => state.toggle);
@@ -21,6 +22,25 @@ const Interface = () => {
     const uploadedFile = event.target.files[0];
     set_suspicious(uploadedFile);
     setFromFile(true);
+
+    if (uploadedFile) {
+      // Create a new FileReader
+      var reader = new FileReader();
+
+      // Define the onload event callback
+      reader.onload = function (e) {
+        // e.target.result contains the file content
+        var fileContent = e.target.result;
+        console.log("File Content:", fileContent);
+        setTarget(fileContent);
+        // You can now do something with the file content
+      };
+
+      // Read the file as text (you can use other methods like readAsArrayBuffer for binary files)
+      reader.readAsText(uploadedFile);
+    } else {
+      console.error("No file selected.");
+    }
   };
 
   const HandleSubmit = (event) => {

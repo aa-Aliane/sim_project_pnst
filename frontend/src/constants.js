@@ -61,7 +61,7 @@ export const TextPerLang = {
       questions or comments about this project.`,
     },
     result: {
-      deep: "deep search",
+      deep: "show details",
     },
   },
   fr: {
@@ -110,7 +110,7 @@ export const TextPerLang = {
       content: `Bienvenue sur le site web du projet de recherche sur la détection du plagiat dans les écrits scientifiques algériens, dédié à la lutte contre le plagiat académique. Notre équipe s'engage à développer des outils innovants pour aider les chercheurs, les étudiants et les enseignants à détecter les risques potentiels de plagiat et à maintenir l'intégrité académique. Notre système de détection de similarité et de plagiat permet aux utilisateurs d'évaluer les documents scientifiques pour tout degré de similarité et d'éviter le plagiat. Ce système donne accès à une vaste sélection de documents sources monolingues et multilingues provenant de diverses bases de données scientifiques, notamment PNST et ASJP. Notre objectif est de fournir aux chercheurs, aux étudiants et aux enseignants les outils et les ressources nécessaires pour créer un travail académique de haute qualité et original tout en maintenant les normes les plus élevées d'intégrité. Nous croyons que l'intégrité académique est fondamentale pour la progression de la recherche scientifique et pour l'avancement de la société dans son ensemble. Merci de visiter ce site web et n'hésitez pas à nous contacter si vous avez des questions ou des commentaires sur ce projet.`,
     },
     result: {
-      deep: "recherche approfondie",
+      deep: "afficher les détails",
     },
   },
   ar: {
@@ -159,7 +159,7 @@ export const TextPerLang = {
       content: `مرحبًا بكم في موقع الويب الخاص بمشروع بحث الكشف عن الاقتباسات في الكتابات العلمية الجزائرية، المكرس لمكافحة الاقتباس الأكاديمي. تلتزم فرقتنا بتطوير أدوات مبتكرة تساعد الباحثين والطلاب والمدرسين على اكتشاف مخاطر الاقتباس البحثي المحتملة والحفاظ على النزاهة الأكاديمية. يتيح نظامنا للكشف عن التشابه والاقتباس الإمكانية للمستخدمين لتقييم الوثائق العلمية بأي درجة من التشابه وتجنب الاقتباس البحثي. يوفر هذا النظام وصولًا إلى مجموعة واسعة من الوثائق المصدرية أحادية اللغة ومتعددة اللغات من مختلف قواعد البيانات العلمية، بما في ذلك PNST و ASJP. هدفنا هو تزويد الباحثين والطلاب والمدرسين بالأدوات والموارد اللازمة لإنشاء عمل أكاديمي عالي الجودة والأصلي مع الحفاظ على أعلى معايير النزاهة. نحن نؤمن بأن النزاهة الأكاديمية هي أساس تقدم البحث العلمي وتقدم المجتمع بأكمله. شكرًا لزيارة هذا الموقع، ولا تتردد في الاتصال بنا إذا كان لديك أي أسئلة أو تعليقات حول هذا المشروع.`,
     },
     result: {
-      deep: "بحث عميق",
+      deep: "إظهار التفاصيل",
     },
   },
 };

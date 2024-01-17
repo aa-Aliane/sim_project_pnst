@@ -24,6 +24,8 @@ def tokenize(text: str):
     return tokens
 
 
+
+
 def regex_tokenize(text: str):
     return re.split(r"[.?!:.؟!]", text)
 

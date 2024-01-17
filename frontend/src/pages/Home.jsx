@@ -8,6 +8,7 @@ import Filters from "../Layouts/Filters";
 import Interface from "../Layouts/Interface";
 import Results from "../Layouts/Results";
 import About from "../Layouts/About";
+import Details from "../Layouts/Details";
 
 const Home = () => {
   const current_layout = useLayout((state) => state.current_layout);
@@ -15,12 +16,13 @@ const Home = () => {
     <div>
       <Nav />
       <main>
-        {(current_layout === "interface" || current_layout === "results") && (
-          <Filters />
-        )}
+        {(current_layout === "interface" ||
+          current_layout === "results" ||
+          current_layout === "details") && <Filters />}
         {current_layout === "interface" && <Interface />}
         {current_layout === "results" && <Results />}
         {current_layout === "about" && <About />}
+        {current_layout === "details" && <Details />}
       </main>
     </div>
   );

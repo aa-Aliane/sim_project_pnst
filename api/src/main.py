@@ -7,7 +7,7 @@ from .core import query_index
 
 
 from .schemas import SimpleQuery, FileQuery
-from .utils import clean_text
+from .utils import clean_text, extract_from_pdf
 
 import os, re
 import tempfile
@@ -91,7 +91,7 @@ async def most_similar_file(file: UploadFile = File(...), k: int = 5):
             tmp_file_path = tmp_file.name
 
         if content.filename.endswith(".pdf"):
-            text = textract.process(tmp_file_path).decode("utf-8")
+            text = extract_from_pdf(tmp_file_path)
         elif content.filename.endswith(".docx"):
             text = textract.process(tmp_file_path, method="python-docx").decode("utf-8")
 
