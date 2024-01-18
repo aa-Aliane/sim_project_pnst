@@ -5,6 +5,7 @@ import { useLayout } from "../store/LayoutState";
 import { useModel } from "../store/ModelState";
 import { useToggleMenu } from "../store/General";
 import { useResultStore } from "../store/ResultState";
+import { useNavigate } from "react-router-dom";
 
 const Interface = () => {
   const suspicious = useModel((state) => state.suspicious);
@@ -17,6 +18,8 @@ const Interface = () => {
   const [fromFile, setFromFile] = useState(false);
 
   const menu_toggled = useToggleMenu((state) => state.toggle);
+
+  const navigate = useNavigate();
 
   const handleFileUpload = (event) => {
     const uploadedFile = event.target.files[0];
@@ -61,6 +64,7 @@ const Interface = () => {
         set_suspicious(text);
         set_results(res.data.response);
         set_current_layout("results");
+        navigate("results");
       });
     } else {
       let data = new FormData();
@@ -71,6 +75,7 @@ const Interface = () => {
         set_suspicious(text);
         set_results(res.data.response);
         set_current_layout("results");
+        navigate("results");
       });
     }
   };

@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { api } from "../services/api";
-import { useLayout } from "../store/LayoutState";
+// import { api } from "../services/api";
+// import { useLayout } from "../store/LayoutState";
 
-// components
-import Nav from "../components/Nav";
-import Filters from "../Layouts/Filters";
-import Interface from "../Layouts/Interface";
-import Results from "../Layouts/Results";
-import About from "../Layouts/About";
-import Details from "../Layouts/Details";
+// // components
+// import Nav from "../components/Nav";
+// import Filters from "../components/Filters";
+// import Interface from "./Interface";
+// import Results from "../Layouts/Results";
+// import About from "./About";
+// import Details from "../Layouts/Details";
 
 const Home = () => {
   const current_layout = useLayout((state) => state.current_layout);
   return (
     <div>
-      <Nav />
+      {/* <Nav />
       <main>
         {(current_layout === "interface" ||
           current_layout === "results" ||
@@ -23,7 +23,7 @@ const Home = () => {
         {current_layout === "results" && <Results />}
         {current_layout === "about" && <About />}
         {current_layout === "details" && <Details />}
-      </main>
+      </main> */}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { useModel } from "../store/ModelState";
 import { usePagination } from "../store/PaginationState";
 import { useToggleMenu } from "../store/General";
 
+
 const Results = () => {
   const results = useModel((state) => state.results);
   const current_page = usePagination((state) => state.current_page);
@@ -13,6 +14,8 @@ const Results = () => {
   const [end, setEnd] = useState(Math.min(results.length, 10));
 
   const menu_toggled = useToggleMenu((state) => state.toggle);
+
+  
 
   useEffect(() => {
     setStart(current_page * results_per_page - results_per_page);

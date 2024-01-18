@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLanguage } from "../store/LanguageState";
 import { useDropDowns, useSelectedFilters } from "../store/ClickState";
-import Filter from "../components/Filter";
+import Filter from "./Filter";
 import { useToggleMenu } from "../store/General";
 
 const Filters = () => {

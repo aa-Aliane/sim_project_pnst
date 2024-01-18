@@ -1,19 +1,31 @@
 import React from "react";
 import { useLanguage } from "../store/LanguageState";
 import { useResultStore } from "../store/ResultState";
-import { useModel } from "../store/ModelState";
 import { useLayout } from "../store/LayoutState";
+import { useNavigate } from "react-router-dom";
+import { useModel } from "../store/ModelState";
+import { api } from "../services/api";
+
+const splitTextIntoChunks = (text, chunkSize) => {
+  const chunks = [];
+  for (let i = 0; i < text.length; i += chunkSize) {
+    chunks.push(text.slice(i, i + chunkSize));
+  }
+  return chunks;
+};
 
 const Result = ({ result }) => {
   const current_lang = useLanguage((state) => state.current_language);
   const text = useLanguage((state) => state.text.result);
 
-  const { setSource, setTarget } = useResultStore();
-  const {set_current_layout } = useLayout()
+  const { setResult } = useResultStore();
+  const { set_current_layout } = useLayout();
+  const { suspicious } = useModel();
+
+  const navigate = useNavigate();
 
   const handleResultDisplay = () => {
-    setSource(
-      `Provided proper attribution is provided, Google hereby grants permission to
+    let source = `Provided proper attribution is provided, Google hereby grants permission to
     reproduce the tables and figures in this paper solely for use in journalistic or
     scholarly works.
     
@@ -1210,9 +1222,18 @@ const Result = ({ result }) => {
     this
     is
     what
-    `
-    );
+    `;
+    source = splitTextIntoChunks(source, 512);
+
     set_current_layout("details");
+    api
+      .post("compare", { source: source, target: suspicious })
+      .then((response) => {
+        console.log(response);
+        setResult(response.data.similarity_rates);
+      });
+
+    navigate("/details");
   };
 
   return (

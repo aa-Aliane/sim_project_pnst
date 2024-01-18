@@ -12,3 +12,8 @@ class SimpleQuery(Query):
 
 class FileQuery(Query):
     content: UploadFile = File(...)
+
+
+class CompareRequest(BaseModel):
+    target: str
+    source: list[str]

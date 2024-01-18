@@ -2,6 +2,7 @@ import React from "react";
 import { useLanguage } from "../store/LanguageState";
 import { useLayout } from "../store/LayoutState";
 import { useModel } from "../store/ModelState";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
   //   useLanguage methods and variables
@@ -13,14 +14,19 @@ const Nav = () => {
   const set_current_layout = useLayout((state) => state.set_current_layout);
   const set_suspicious = useModel((state) => state.set_suspicious);
 
+  const navigate = useNavigate();
+
   // handles language change
   const HandleLanguageChange = (l) => {
     change_language(l);
   };
   // handles layout change
   const HandleLayoutChange = (l) => {
-    set_current_layout(l);
     set_suspicious("");
+    console.log("first", l);
+
+    set_current_layout(l);
+    navigate(l === "interface" ? "" : l);
   };
   return (
     <nav className="nav">

@@ -1,6 +1,7 @@
 import faiss, os, json
 import unicodedata as ud
 from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import time
 
@@ -36,3 +37,23 @@ def search(query, top_k):
     ]
 
     return results
+
+
+def compare_vectors(source, target):
+    source_vectors = model.encode(source)
+    target_vector = model.encode(target)
+
+    source_vectors = np.array(source_vectors)
+    print(
+        "shapeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        source_vectors.shape,
+        target_vector.shape,
+    )
+
+    # Calculate cosine similarity for each pair of source and target paragraphs
+    similarity_scores = [
+        cosine_similarity([source_vector], [target_vector])[0][0]
+        for source_vector in source_vectors.tolist()
+    ]
+
+    return similarity_scores

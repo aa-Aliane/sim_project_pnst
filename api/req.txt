@@ -82,3 +82,4 @@ websockets==10.4
 wincertstore==0.2
 xlrd==1.2.0
 XlsxWriter==3.0.9
+pymupdf==1.23.14
