@@ -2,10 +2,22 @@ body {
   background-color: var(--clr-neutral-300);
 }
 
-h3, h4, h5, p {
+h3,
+h4,
+h5,
+p {
   font-weight: var(--fw-xxl);
   line-height: 2rem;
 }
+
+.main-layout {
+  position: relative;
+  overflow-y: auto;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
 .app {
   font-size: var(--fs-m);
   font-weight: var(--fw-regular);
@@ -17,4 +29,39 @@ h3, h4, h5, p {
   font-size: var(--fs-ar);
   font-family: var(--ff-arabic);
   color: var(--clr-primary-900);
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: var(--clr-primary-700);
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid var(--clr-primary-700);
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--clr-primary-700);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+.form-control {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
 }

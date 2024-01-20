@@ -3,10 +3,10 @@ import Nav from "../components/Nav";
 
 const MainLayout = ({ children }) => {
   return (
-    <div>
+    <>
       <Nav />
-      <main>{children}</main>
-    </div>
+      <main className="main-layout">{children}</main>
+    </>
   );
 };
 

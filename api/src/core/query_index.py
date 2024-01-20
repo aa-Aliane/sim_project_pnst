@@ -4,6 +4,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import time
+from .utils import load_file
 
 
 model = SentenceTransformer(
@@ -13,11 +14,14 @@ model = SentenceTransformer(
 BASE_DIR = os.path.dirname(__file__)
 
 
-index = faiss.read_index("src/core/pnst.index")
+index = faiss.read_index("src/core/arxiv_old.index")
 
 
-with open("src/core/index_to_ids.json", "r", encoding="utf8") as f:
+with open("src/core/index_to_ids.arxiv.json", "r", encoding="utf8") as f:
     index_to_ids = json.load(f)
+
+
+
 
 
 def search(query, top_k):
@@ -36,24 +40,23 @@ def search(query, top_k):
         for idx, rate in zip(top_k_ids, rates)
     ]
 
+    print(results)
+
     return results
 
 
 def compare_vectors(source, target):
-    source_vectors = model.encode(source)
+    source_text = load_file(source)
+    source_vectors = model.encode(source_text)
     target_vector = model.encode(target)
 
     source_vectors = np.array(source_vectors)
-    print(
-        "shapeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-        source_vectors.shape,
-        target_vector.shape,
-    )
+
 
     # Calculate cosine similarity for each pair of source and target paragraphs
     similarity_scores = [
-        cosine_similarity([source_vector], [target_vector])[0][0]
-        for source_vector in source_vectors.tolist()
+        {"text": text,"rate" :cosine_similarity([source_vector], [target_vector])[0][0]}
+        for text, source_vector in zip(source_text, source_vectors.tolist())
     ]
 
     return similarity_scores

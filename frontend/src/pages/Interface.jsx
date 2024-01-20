@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Interface = () => {
   const suspicious = useModel((state) => state.suspicious);
+  const multiLang = useModel((state) => state.multiLang);
   const set_suspicious = useModel((state) => state.set_suspicious);
   const set_results = useModel((state) => state.set_results);
   const text = useLanguage((state) => state.text.interface);
@@ -49,6 +50,7 @@ const Interface = () => {
   const HandleSubmit = (event) => {
     event.preventDefault();
     HandlePlagiarismDetection(suspicious);
+    k;
   };
 
   // Handle plagiarism detection
@@ -59,13 +61,15 @@ const Interface = () => {
         content: text,
         k: 100,
       };
-      api.post("most_similar/", data).then((res) => {
-        console.log("🚀 ~ file: Interface.jsx:22 ~ .then ~ res:", res);
-        set_suspicious(text);
-        set_results(res.data.response);
-        set_current_layout("results");
-        navigate("results");
-      });
+      api
+        .post(`most_similar${!multiLang ? "_standard" : ""}/`, data)
+        .then((res) => {
+          console.log("🚀 ~ file: Interface.jsx:22 ~ .then ~ res:", res);
+          set_suspicious(text);
+          set_results(res.data.response);
+          set_current_layout("results");
+          navigate("results");
+        });
     } else {
       let data = new FormData();
       data.append("file", text);
@@ -96,6 +100,7 @@ const Interface = () => {
       >
         <span class="material-symbols-outlined">backspace</span>
       </button>
+
       {!fromFile && (
         <textarea
           className="interface__text textarea"
@@ -103,28 +108,37 @@ const Interface = () => {
           onChange={(e) => set_suspicious(e.target.value)}
         ></textarea>
       )}
+
       {/* <button className="btn btn--check interface__upload">
         
         </button> */}
       {fromFile && <p className="interface__text">{suspicious.name}</p>}
-      <label className="btn btn--check interface__upload" htmlFor="file-input">
-        <p>{text.upload}</p>
-        <span class="material-symbols-outlined">picture_as_pdf</span>
-      </label>
-      <input
-        className="interface__upload"
-        id="file-input"
-        type="file"
-        onChange={handleFileUpload}
-      />
-      <button
-        data-enabled={suspicious !== ""}
-        className="btn btn--check interface__check"
-        type="submit"
-      >
-        <p>{text.detect}</p>
-        <span class="material-symbols-outlined">plagiarism</span>
-      </button>
+      <div className="flex-container">
+        <label
+          className="btn btn--check interface__upload"
+          htmlFor="file-input"
+        >
+          <p>
+            {text.upload}
+            {/* {String(multiLang)} */}
+          </p>
+          <span class="material-symbols-outlined">picture_as_pdf</span>
+        </label>
+        <input
+          className="interface__upload"
+          id="file-input"
+          type="file"
+          onChange={handleFileUpload}
+        />
+        <button
+          data-enabled={suspicious !== ""}
+          className="btn btn--check interface__check"
+          type="submit"
+        >
+          <p>{text.detect}</p>
+          <span class="material-symbols-outlined">plagiarism</span>
+        </button>
+      </div>
     </form>
   );
 };

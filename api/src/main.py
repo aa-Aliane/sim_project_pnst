@@ -15,6 +15,17 @@ import textract
 import unicodedata as ud
 import langdetect as ld
 
+from elasticsearch import Elasticsearch
+
+# Connect to your Elasticsearch instance
+es = Elasticsearch([{'host': 'es01', 'port': 9200}])
+
+# Index name in Elasticsearch
+index_name = 'es_db'
+
+
+
+
 # Create a FastAPI instance
 app = FastAPI()
 
@@ -50,6 +61,62 @@ async def hello_world():
 
 
 # Endpoint to handle text queries
+@app.post("/api/most_similar_standard/")
+async def most_similar_standard(query: SimpleQuery):
+    content = query.content
+    k = query.k
+
+    # Clean the input text
+    cleaned_text = clean_text(content)
+
+
+    query = {
+    "query": {
+        "match": {
+            "content": {
+                "query": cleaned_text,
+                "operator": "or"
+            }
+        }
+    }
+}
+
+    # Perform the search
+    result = es.search(index=index_name, body=query)
+
+    max_score = max(hit['_score'] for hit in result['hits']['hits'])
+
+    # Display the results
+    res = []
+    for hit in result['hits']['hits']:
+        rate = (hit['_score'] / max_score) * 100
+        res.append({"id": hit["_source"]["filename"], "rate":rate})
+
+   
+
+    # Retrieve results from the database
+    results = (
+        db.session.query(docs_models.Document)
+        .filter(docs_models.Document.doc_id.in_([r["id"] for r in res]))
+        .all()
+    )
+
+    # Format the response
+    response = [
+        {   "doc_id" : doc.doc_id,
+            "title": re.sub(r"\[.*", "", doc.title),
+            "rate": rate * 100 // 100,
+            "url": doc.url,
+            "authors": doc.authors,
+            "lang": ld.detect(doc.title),
+        }
+        for doc, rate in zip(results, [r["rate"] for r in res])
+    ]
+
+    return {"response": response}
+
+
+# Endpoint to handle text queries
 @app.post("/api/most_similar/")
 async def most_similar(query: SimpleQuery):
     content = query.content
@@ -58,19 +125,20 @@ async def most_similar(query: SimpleQuery):
     # Clean the input text
     cleaned_text = clean_text(content)
 
+    
     # Perform the search
     res = query_index.search(cleaned_text, k)
 
     # Retrieve results from the database
     results = (
         db.session.query(docs_models.Document)
-        .filter(docs_models.Document.repo_id.in_([r["id"] for r in res]))
+        .filter(docs_models.Document.doc_id.in_([r["id"] for r in res]))
         .all()
     )
 
     # Format the response
     response = [
-        {
+        {   "doc_id" : doc.doc_id,
             "title": re.sub(r"\[.*", "", doc.title),
             "rate": rate,
             "url": doc.url,
@@ -136,20 +204,15 @@ async def most_similar_file(file: UploadFile = File(...), k: int = 5):
 # Endpoint to compare a list of source texts against a target text
 @app.post("/api/compare/")
 async def compare_texts(request: CompareRequest):
-    print("hhehhehehe")
-    target_text = request.target
-    source_texts = request.source
 
-    # Clean the input texts
-    cleaned_target = clean_text(target_text)
-    cleaned_sources = [clean_text(source) for source in source_texts]
+    target_text = request.target
+    source = request.source
+
+
 
     # Calculate similarity rates using SequenceMatcher
-    similarity_rates = query_index.compare_vectors(source_texts, target_text)
-    similarity_rates = [
-        {"text": text, "rate": rate}
-        for text, rate in zip(source_texts, similarity_rates)
-    ]
+    similarity_rates = query_index.compare_vectors(source, target_text)
+  
     print(similarity_rates)
 
     return {"similarity_rates": similarity_rates}

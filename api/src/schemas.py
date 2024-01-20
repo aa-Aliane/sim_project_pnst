@@ -16,4 +16,4 @@ class FileQuery(Query):
 
 class CompareRequest(BaseModel):
     target: str
-    source: list[str]
+    source: str

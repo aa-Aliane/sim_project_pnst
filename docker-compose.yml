@@ -1,5 +1,108 @@
 version: "3.8"
 services:
+  # Elasticsearch Node 1
+  es01:
+    container_name: es01
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.2"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      node.name: es01
+      discovery.seed_hosts: es01,es02,es03
+      cluster.initial_master_nodes: es01,es02,es03
+      cluster.name: mycluster
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: -Xms256m -Xmx256m
+    volumes:
+      - "es-data-es01:/usr/share/elasticsearch/data"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost:9200"]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    networks:
+      - es_network
+
+  # Elasticsearch Node 2
+  es02:
+    container_name: es02
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.2"
+    ports:
+      - "9201:9200"
+      - "9301:9300"
+    environment:
+      node.name: es02
+      discovery.seed_hosts: es01,es02,es03
+      cluster.initial_master_nodes: es01,es02,es03
+      cluster.name: mycluster
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: -Xms256m -Xmx256m
+    volumes:
+      - "es-data-es02:/usr/share/elasticsearch/data"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost:9200"]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    networks:
+      - es_network
+
+  # Elasticsearch Node 3
+  es03:
+    container_name: es03
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.10.2"
+    ports:
+      - "9202:9200"
+      - "9302:9300"
+    environment:
+      node.name: es03
+      discovery.seed_hosts: es01,es02,es03
+      cluster.initial_master_nodes: es01,es02,es03
+      cluster.name: mycluster
+      bootstrap.memory_lock: "true"
+      ES_JAVA_OPTS: -Xms256m -Xmx256m
+    volumes:
+      - "es-data-es03:/usr/share/elasticsearch/data"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    healthcheck:
+      test: ["CMD-SHELL", "curl http://localhost:9200"]
+      interval: 10s
+      timeout: 10s
+      retries: 120
+    networks:
+      - es_network
+
+  # Kibana
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.10.2
+    depends_on:
+      es01:
+        condition: service_healthy
+      es02:
+        condition: service_healthy
+      es03:
+        condition: service_healthy
+    ports:
+      - "5601:5601"
+    environment:
+      - 'ELASTICSEARCH_HOSTS=["http://es01:9200","http://es02:9200","http://es03:9200"]'
+    networks:
+      - es_network
+
+  # PostgreSQL Database
   db:
     container_name: ps_db
     image: postgres:15-alpine3.17
@@ -13,6 +116,7 @@ services:
     networks:
       - db_network
 
+  # Backend API
   backend:
     container_name: api
     build:
@@ -33,24 +137,17 @@ services:
     volumes:
       - migrations:/code/alembic/versions
       - ./api/src:/code/src
+      - ./api/scripts:/code/scripts
     networks:
       - db_network
+      - es_network
     depends_on:
       - db
+      - es01
+      - es02
+      - es03
 
-  # backend_utility:
-  #   container_name: alembic
-  #   build:
-  #     context: .
-  #     dockerfile: dockerfiles/backend.dockerfile
-  #   entrypoint: ["alembic"]
-  #   volumes:
-  #     - migrations:/code/alembic/versions
-  #   networks:
-  #     - db_network
-  #   depends_on:
-  #     - db
-
+  # Frontend Client
   frontend:
     container_name: client
     build:
@@ -68,10 +165,21 @@ services:
       - backend
 
 volumes:
+  # Volume for PostgreSQL data
   db-data:
     driver: local
+
+  # Elasticsearch data volumes for each node
+  es-data-es01:
+  es-data-es02:
+  es-data-es03:
+
+  # Volume for Alembic database migrations
   migrations:
 
 networks:
+  # Bridge network for communication between backend, frontend, and database
   db_network:
+    driver: bridge
+  es_network:
     driver: bridge

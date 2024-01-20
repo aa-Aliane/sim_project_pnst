@@ -31,6 +31,14 @@ export const PaginationInfo = ({ nb_results }) => {
       <ul data-lang={lang}>
         <li
           onClick={() => {
+            set_results_per_page(5);
+            set_current_page(1);
+          }}
+        >
+          5
+        </li>
+        <li
+          onClick={() => {
             set_results_per_page(10);
             set_current_page(1);
           }}

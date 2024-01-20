@@ -5,16 +5,16 @@ const rateIndicator = (value) => {
   let rate = Number(value);
   var result;
   switch (true) {
-    case rate >= 0 && rate <= 0.4:
+    case rate >= 0 && rate < 0.4:
       result = "weak";
       break;
-    case rate >= 0.5 && rate <= 0.7:
+    case rate >= 0.4 && rate <= 0.7:
       result = "medium";
       break;
-    case rate >= 0.8 && rate <= 0.9:
+    case rate >= 0.7 && rate < 0.9:
       result = "strong";
       break;
-    case rate > 0.9:
+    case rate >= 0.9:
       result = "very-strong";
       break;
     default:
@@ -31,7 +31,7 @@ const Details = () => {
     <div className="details-container">
       <ul className="details">
         {result
-          ? result.slice(1, 12).map((paragraph, i) => (
+          ? result.map((paragraph, i) => (
               <li
                 key={`paragragh-${i}`}
                 className="details__item"

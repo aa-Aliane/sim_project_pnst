@@ -1,9 +1,39 @@
-.nav {
-    padding: 1rem 2rem;
+.header {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  z-index: 100;
+
+  height: fit-content;
+
+  &__menu {
+    height: 5rem;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 20px 10px -20px;
     display: flex;
-    justify-content: space-between;
-    &__items {
-        display: flex;
-        gap: 1rem;
-    }
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 10rem;
+  }
+}
+
+.nav {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+
+  height: 5rem;
+
+  width: 100%;
+  background-color: var(--clr-primary-700);
+
+  &__items {
+    display: flex;
+    gap: 1rem;
+
+  
+  }
 }
